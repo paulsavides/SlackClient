@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using SlackBot.Contracts.Common;
 using SlackBot.Init;
+using SlackBot.Types;
 using System.Text;
 
 namespace SlackBot
@@ -18,14 +19,14 @@ namespace SlackBot
     private const int receiveChunkSize = 256;
     private static ClientWebSocket ws;
 
-    public Dictionary<string, object> ReadMessage()
+    public MessageEvent ReadMessage()
     {
-      return msgQueue.ReadMessage();
+      return msgQueue.ReadMessage().ToMessageContract();
     }
 
-    public void SendMessage(Dictionary<string, object> message)
+    public void SendMessage(MessageEvent message)
     {
-      msgQueue.SendMessage(message);
+      msgQueue.SendMessage(message.ToQueueFormat());
     }
 
     public void Start(string apiKey)
@@ -123,7 +124,7 @@ namespace SlackBot
       {
         var sendmsg = msgQueue.GetSendMessage();
 
-        if (sendmsg.GetValueByKey("type") != "no_message")
+        if (sendmsg.GetValueByKey("type") != EventTypes.NoMessage)
         {
           SendToSocket(sendmsg);
         }

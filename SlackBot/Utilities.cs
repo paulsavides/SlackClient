@@ -1,6 +1,7 @@
 ﻿using SlackBot.Contracts.Common;
 using SlackBot.Helpers;
 using System.Collections.Generic;
+using SlackBot.Types;
 
 namespace SlackBot
 {
@@ -20,6 +21,11 @@ namespace SlackBot
       return foundChannel;
     }
 
+    public static bool MessageToMe(MessageEvent msg)
+    {
+      return msg.Text.Contains(Context.Self.ID);
+    }
+
     public static bool MessageToMe(Dictionary<string, object> msg)
     {
       bool messageToMe = false;
@@ -36,15 +42,8 @@ namespace SlackBot
 
     public static User GetUserSender(Dictionary<string, object> msg)
     {
-      User user = null;
-
-      if (MessageIsGivenType(msg, "message"))
-      {
-        string userId = msg.GetValueByKey("user");
-        user = Context.Users.Find((one) => (one.ID == userId));
-      }
-
-      return user;
+      string userId = msg.GetValueByKey("user");
+      return Context.Users.Find((one) => (one.ID == userId));
     }
 
 

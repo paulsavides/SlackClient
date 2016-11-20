@@ -1,8 +1,9 @@
 ﻿using SlackBot;
 using SlackBot.Contracts.Common;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Threading;
+using SlackBot.Types;
 
 namespace Tester
 {
@@ -10,45 +11,40 @@ namespace Tester
   {
     static void Main(string[] args)
     {
-      Random rand = new Random();
+      string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
+
 
       ISlackBot slackBot = new Slacker();
+      slackBot.Start(apiKey);
 
-      slackBot.Start("apiKey");
-      Dictionary<string, object> message;
+      MessageEvent message;
 
       while (true)
       {
         message = slackBot.ReadMessage();
-        PrintMessage(message);
+
+        Console.WriteLine("!!!!!!!");
+        Console.WriteLine($"type: {message.Type}");
+        Console.WriteLine($"user: {message.User?.ID}");
+        Console.WriteLine($"channel: {message.Channel?.Id}");
+        Console.WriteLine($"text: {message.Text}");
+        Console.WriteLine($"timestamp: {message.Timestamp}");
 
         if (Utilities.MessageToMe(message))
         {
-          User user = Utilities.GetUserSender(message);
-          if (user == null) continue; // this shouldn't happen but it's possible
-
-          Channel channel = Utilities.GetChannel(message);
-
-          slackBot.SendMessage(new Dictionary<string, object>
+          slackBot.SendMessage(new MessageEvent
           {
-            {"id" , rand.Next(1000) },
-            {"type", EventTypes.Message },
-            {"channel", channel.Id },
-            {"text" , $"Hello, {user.Name}"}
+            Type = EventTypes.Message,
+            User = Context.Self,
+            Channel = message.Channel,
+            Text = $"Hello {message.User.Name}",
+            Timestamp = DateTime.Now
           });
         }
+
         Thread.Sleep(1000);
       }
     }
 
-    private static void PrintMessage(Dictionary<string, object> message)
-    {
-      Console.WriteLine("----------------");
-
-      foreach (var part in message)
-      {
-        Console.WriteLine(part.Key.ToString() + ": " + part.Value.ToString());
-      }
-    }
   }
 }

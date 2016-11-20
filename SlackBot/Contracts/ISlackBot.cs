@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using SlackBot.Contracts;
+using SlackBot.Types;
 
 namespace SlackBot
 {
   public interface ISlackBot
   {
     void Start(string apiKey);
-    Dictionary<string, object> ReadMessage();
-    void SendMessage(Dictionary<string, object> message);
+    MessageEvent ReadMessage();
+    void SendMessage(MessageEvent message);
   }
 }

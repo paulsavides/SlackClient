@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using SlackBot.Types;
 
 namespace SlackBot
 {
@@ -8,7 +9,7 @@ namespace SlackBot
     private Queue<Dictionary<string, object>> _rmsgq; // received message Queue
     private Queue<Dictionary<string, object>> _smsgq; // send message Queue
     private readonly Dictionary<string, object> _defaultmsg =
-      new Dictionary<string, object> { { "type", "no_message" } };
+      new Dictionary<string, object> { { "type", EventTypes.NoMessage } };
     private bool _rrlocked; // Read lock
     private bool _rwlocked; // Write lock 
     private bool _srlocked; // Read lock
