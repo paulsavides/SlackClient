@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages/Newtonsoft.Json.9.0.1
+/.vs/Slack/v14
+/Tester/bin/Debug
+/Tester/obj/Debug
+/SlackBot/obj/Debug
+/SlackBot/bin/Debug
+/Tester
