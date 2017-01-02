@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace SlackBot
 {
   [DataContract]
-  public static class Context
+  public class SlackContext
   {
     [DataMember(Name = "self")]
     public static User Self { get; set; }

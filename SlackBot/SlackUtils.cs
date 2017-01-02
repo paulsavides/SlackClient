@@ -5,17 +5,17 @@ using SlackBot.Types;
 
 namespace SlackBot
 {
-  public static class Utilities
+  public static class SlackUtils
   {
     public static Channel GetChannel(Dictionary<string, object> msg)
     {
       string channelId = msg.GetValueByKey("channel");
-      Channel foundChannel = Context.Channels.Find((channel) => channel.Id == channelId);
+      Channel foundChannel = SlackContext.Channels.Find((channel) => channel.Id == channelId);
 
       if (foundChannel == null)
       {
         // slack is sort of odd
-        foundChannel = Context.Groups.Find((group) => (group.Id == channelId));
+        foundChannel = SlackContext.Groups.Find((group) => (group.Id == channelId));
       }
 
       return foundChannel;
@@ -23,7 +23,7 @@ namespace SlackBot
 
     public static bool MessageToMe(MessageEvent msg)
     {
-      return msg.Text.Contains(Context.Self.ID);
+      return msg.Text.Contains(SlackContext.Self.ID);
     }
 
     public static bool MessageToMe(Dictionary<string, object> msg)
@@ -31,7 +31,7 @@ namespace SlackBot
       bool messageToMe = false;
       if (MessageIsGivenType(msg, "message"))
       {
-        if (msg.GetValueByKey("text").Contains(Context.Self.ID))
+        if (msg.GetValueByKey("text").Contains(SlackContext.Self.ID))
         {
           messageToMe = true;
         }
@@ -43,7 +43,7 @@ namespace SlackBot
     public static User GetUserSender(Dictionary<string, object> msg)
     {
       string userId = msg.GetValueByKey("user");
-      return Context.Users.Find((one) => (one.ID == userId));
+      return SlackContext.Users.Find((one) => (one.ID == userId));
     }
 
 

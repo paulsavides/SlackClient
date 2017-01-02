@@ -60,21 +60,20 @@
     <Compile Include="Contracts\Common\TNPBase.cs" />
     <Compile Include="Contracts\Common\Topic.cs" />
     <Compile Include="Contracts\Common\User.cs" />
-    <Compile Include="Context.cs" />
+    <Compile Include="SlackContext.cs" />
     <Compile Include="Types\Event.cs" />
     <Compile Include="Types\EventTypes.cs" />
     <Compile Include="Helpers\Extensions.cs" />
-    <Compile Include="InternalUtilities.cs" />
+    <Compile Include="Helpers\InternalUtilities.cs" />
     <Compile Include="Init\Constants.cs" />
     <Compile Include="Queue\IMessageQueue.cs" />
     <Compile Include="Contracts\ISlackBot.cs" />
     <Compile Include="Queue\MessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Init\Post.cs" />
     <Compile Include="Init\RTM.cs" />
     <Compile Include="Slacker.cs" />
     <Compile Include="Types\MessageEvent.cs" />
-    <Compile Include="Utilities.cs" />
+    <Compile Include="SlackUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

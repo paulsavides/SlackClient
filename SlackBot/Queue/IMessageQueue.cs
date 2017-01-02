@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SlackBot
 {
-  public interface IMessageQueue
+  internal interface IMessageQueue
   {
     Dictionary<string, object> ReadMessage();
     void SendMessage(Dictionary<string, object> message);

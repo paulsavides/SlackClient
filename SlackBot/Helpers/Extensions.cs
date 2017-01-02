@@ -58,8 +58,8 @@ namespace SlackBot.Helpers
 
     public static MessageEvent ToMessageContract(this Dictionary<string, object> msg)
     {
-      var channel = Utilities.GetChannel(msg);
-      var user = Utilities.GetUserSender(msg);
+      var channel = SlackUtils.GetChannel(msg);
+      var user = SlackUtils.GetUserSender(msg);
 
       return new MessageEvent
       {

@@ -4,7 +4,7 @@ using SlackBot.Types;
 
 namespace SlackBot
 {
-  public class MessageQueue : IMessageQueue
+  internal class MessageQueue : IMessageQueue
   {
     private Queue<Dictionary<string, object>> _rmsgq; // received message Queue
     private Queue<Dictionary<string, object>> _smsgq; // send message Queue
