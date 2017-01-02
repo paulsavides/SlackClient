@@ -6,7 +6,6 @@ using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using SlackBot.Contracts.Common;
-using SlackBot.Contracts;
 using SlackBot.Init;
 using SlackBot.Types;
 using System.Text;
@@ -30,7 +29,6 @@ namespace SlackBot
     private class SlackBotInternal : ISlackBot
     {
       private static IMessageQueue msgQueue = new MessageQueue();
-      private const int sendChunkSize = 512;
       private const int receiveChunkSize = 512;
       private static ClientWebSocket ws;
 
@@ -114,24 +112,31 @@ namespace SlackBot
 
       private Dictionary<string, object> ReadFromSocket()
       {
-        byte[] buffer = new byte[receiveChunkSize];
+        string receivedMsg = "";
+        Task<WebSocketReceiveResult> promise;
 
-        // Get the promise (js term ok)
-        var promise = ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+        do
+        {
+          byte[] buffer = new byte[receiveChunkSize];
 
-        // Wait for it to finish execution
-        promise.Wait();
+          // Get the promise (js term ok)
 
-        // Get the result from the promise
-        var result = promise.Result;
-        string convertedmsg = buffer.ConvertToString();
+          promise = ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
-        if (result.MessageType == WebSocketMessageType.Close)
+          // Wait for it to finish execution
+          promise.Wait();
+
+          // Get the result from the promise
+          receivedMsg += buffer.ConvertToString();
+
+        } while (!promise.Result.EndOfMessage);
+
+        if (promise.Result.MessageType == WebSocketMessageType.Close)
         {
           Connect(SlackContext.ReconnectUri);
         }
 
-        return JsonConvert.DeserializeObject<Dictionary<string, object>>(convertedmsg);
+        return JsonConvert.DeserializeObject<Dictionary<string, object>>(receivedMsg);
       }
 
       private void ProcessSend()

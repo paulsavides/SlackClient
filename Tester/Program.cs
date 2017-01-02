@@ -10,12 +10,11 @@ namespace Tester
 {
   class Program
   {
-    private const char commandbegin = '!';
+    private static string commandbegin = ConfigurationManager.AppSettings.Get("commandBegin");
+    private static string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
 
     static void Main(string[] args)
     {
-      string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
-
       ISlackBot slackBot = Slacker.CreateSlackBot();
       slackBot.Start(apiKey);
 
@@ -59,7 +58,7 @@ namespace Tester
 
       foreach(var elem in elems)
       {
-        if (elem.StartsWith("" + commandbegin))
+        if (elem.StartsWith(commandbegin))
         {
           comm.Operation = elem.Remove(0,1);
           comm_ix = ix;
