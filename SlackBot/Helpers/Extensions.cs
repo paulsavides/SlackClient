@@ -17,7 +17,7 @@ namespace SlackBot.Helpers
       int i;
       for (i = 0; i < buffer.Length; i++)
       {
-        if (buffer[i] == (byte)'\0') break;
+        if (buffer[i] == (byte)'\0') { break; }
         c[i] = ((char)buffer[i]);
       }
 
@@ -25,7 +25,7 @@ namespace SlackBot.Helpers
       if (i != 0) for (int j = 0; j < i; j++) { res[j] = c[j]; }
 
       if (res == null) res = new char[] { };
-      return new string(res).Trim();
+      return new string(res);
     }
     public static string GetValueByKey(this Dictionary<string, object> dict, string key)
     {
