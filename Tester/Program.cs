@@ -1,22 +1,22 @@
-﻿using SlackBot;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Threading;
-using SlackBot.Types;
 using System.Collections.Generic;
 using System.Linq;
+using Pisces.Slack.Contracts.Events;
+using Pisces.Slack.Client;
 
 namespace Tester
 {
   class Program
   {
     private static string commandbegin = ConfigurationManager.AppSettings.Get("commandBegin");
-    private static string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
+    // private static string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
 
     static void Main(string[] args)
     {
       ISlackBot slackBot = Slacker.CreateSlackBot();
-      slackBot.Start(apiKey);
+      slackBot.Start();
 
       MessageEvent message;
 

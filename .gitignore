@@ -6,5 +6,7 @@
 /.vs/Slack/v14
 /Tester/bin/Debug
 /Tester/obj/Debug
-/SlackBot/obj/Debug
-/SlackBot/bin/Debug
+/Client/obj/Debug
+/Client/bin/Debug
+/Contracts/obj/Debug
+/Contracts/bin/Debug

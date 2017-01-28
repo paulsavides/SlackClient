@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B11CAAC-9A37-4D4F-9C33-5A5CD82C99B3}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{DAFAC3DE-65C3-4C84-89D0-87E679641556}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pisces.Slack.Tester</RootNamespace>
-    <AssemblyName>Pisces.Slack.Tester</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Pisces.Slack.Contracts</RootNamespace>
+    <AssemblyName>Pisces.Slack.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,8 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,22 +41,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Context\Channel.cs" />
+    <Compile Include="Context\DndSettings.cs" />
+    <Compile Include="Context\Group.cs" />
+    <Compile Include="Context\IM.cs" />
+    <Compile Include="Context\Message.cs" />
+    <Compile Include="Context\Profile.cs" />
+    <Compile Include="Context\Purpose.cs" />
+    <Compile Include="Context\ReconnectMessage.cs" />
+    <Compile Include="Context\StartRequest.cs" />
+    <Compile Include="Context\StartResponse.cs" />
+    <Compile Include="Context\Team.cs" />
+    <Compile Include="Context\TNPBase.cs" />
+    <Compile Include="Context\Topic.cs" />
+    <Compile Include="Context\User.cs" />
+    <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\EventTypes.cs" />
+    <Compile Include="Events\MessageEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Client\Client.csproj">
-      <Project>{DA68EEC4-9065-4BC7-B88B-C46260A74854}</Project>
-      <Name>Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Contracts\Contracts.csproj">
-      <Project>{DAFAC3DE-65C3-4C84-89D0-87E679641556}</Project>
-      <Name>Contracts</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
