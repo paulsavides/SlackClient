@@ -11,7 +11,6 @@ namespace Tester
   class Program
   {
     private static string commandbegin = ConfigurationManager.AppSettings.Get("commandBegin");
-    // private static string apiKey = ConfigurationManager.AppSettings.Get("apiKey");
 
     static void Main(string[] args)
     {
@@ -33,7 +32,7 @@ namespace Tester
 
         if (SlackUtils.MessageToMe(message))
         {
-          Command command = processCommand(message);
+          Command command = processCommand(message.Text);
 
           slackBot.SendMessage(new MessageEvent
           {
@@ -47,11 +46,11 @@ namespace Tester
       }
     }
 
-    private static Command processCommand(MessageEvent msg)
+    private static Command processCommand(string msg)
     {
       Command comm = new Command();
 
-      string[] elems = msg.Text.Split(' ');
+      string[] elems = msg.Split(' ');
 
       int ix = 0;
       int comm_ix = -1;

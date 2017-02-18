@@ -15,25 +15,26 @@ namespace Pisces.Slack.Client
 {
   internal class SlackBot : ISlackBot
   {
-    private static IMessageQueue msgQueue = new MessageQueue();
+    private readonly IMessageQueue _msgQueue;
     private const int receiveChunkSize = 512;
-    private static ClientWebSocket ws;
+    private ClientWebSocket ws;
 
     private string _apiKey;
 
     public SlackBot(string apiKey)
     {
+      _msgQueue = new MessageQueue();
       _apiKey = apiKey;
     }
 
     public MessageEvent ReadMessage()
     {
-      return msgQueue.ReadMessage().ToMessageContract();
+      return _msgQueue.ReadMessage().ToMessageContract();
     }
 
     public void SendMessage(MessageEvent message)
     {
-      msgQueue.SendMessage(message.ToQueueFormat());
+      _msgQueue.SendMessage(message.ToQueueFormat());
     }
 
     public void Start()
@@ -97,7 +98,7 @@ namespace Pisces.Slack.Client
           SlackContext.ReconnectUri = new Uri(message.GetValueByKey("url"));
           break;
         case EventTypes.Message:
-          msgQueue.AddReceivedMessage(message);
+          _msgQueue.AddReceivedMessage(message);
           break;
         default:
           break;
@@ -137,7 +138,7 @@ namespace Pisces.Slack.Client
     {
       while (true)
       {
-        var sendmsg = msgQueue.GetSendMessage();
+        var sendmsg = _msgQueue.GetSendMessage();
 
         if (sendmsg.GetValueByKey("type") != EventTypes.NoMessage)
         {

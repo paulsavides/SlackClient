@@ -2,7 +2,7 @@
 
 namespace Pisces.Slack.Client.Init
 {
-  class Constants
+  internal class Constants
   {
     public static readonly Uri BaseUri = new Uri("https://slack.com/api/");
 
