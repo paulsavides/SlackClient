@@ -15,6 +15,7 @@ namespace Pisces.Slack.Client
 {
   internal class SlackBot : ISlackBot
   {
+    private SlackContext _ctx;
     private readonly IMessageQueue _msgQueue;
     private const int receiveChunkSize = 512;
     private ClientWebSocket ws;
@@ -23,13 +24,19 @@ namespace Pisces.Slack.Client
 
     public SlackBot(string apiKey)
     {
+      _ctx = new SlackContext();
       _msgQueue = new MessageQueue();
       _apiKey = apiKey;
     }
 
+    public SlackContext GetContext()
+    {
+      return _ctx;
+    }
+
     public MessageEvent ReadMessage()
     {
-      return _msgQueue.ReadMessage().ToMessageContract();
+      return _msgQueue.ReadMessage().ToMessageContract(_ctx);
     }
 
     public void SendMessage(MessageEvent message)
@@ -39,7 +46,7 @@ namespace Pisces.Slack.Client
 
     public void Start()
     {
-      RTM.Start(new StartRequest
+      _ctx = RTM.Start(new StartRequest
       {
         Token = _apiKey
       });
@@ -47,7 +54,7 @@ namespace Pisces.Slack.Client
       try
       {
         // Connect to the URL
-        Connect(SlackContext.Url);
+        Connect(_ctx.Url);
 
         // Fire off a task that will receive messages and add them to the queue
         Task.Factory.StartNew(() => ProcessRead());
@@ -95,7 +102,7 @@ namespace Pisces.Slack.Client
       switch (message.GetValueByKey("type"))
       {
         case EventTypes.ReconnectUrl:
-          SlackContext.ReconnectUri = new Uri(message.GetValueByKey("url"));
+          _ctx.ReconnectUri = new Uri(message.GetValueByKey("url"));
           break;
         case EventTypes.Message:
           _msgQueue.AddReceivedMessage(message);
@@ -128,7 +135,7 @@ namespace Pisces.Slack.Client
 
       if (promise.Result.MessageType == WebSocketMessageType.Close)
       {
-        Connect(SlackContext.ReconnectUri);
+        Connect(_ctx.ReconnectUri);
       }
 
       return JsonConvert.DeserializeObject<Dictionary<string, object>>(receivedMsg);

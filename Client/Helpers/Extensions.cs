@@ -5,10 +5,11 @@ using System.Runtime.Serialization;
 using System.Web;
 using Pisces.Slack.Contracts.Events;
 using System;
+using Pisces.Slack.Contracts.Context;
 
 namespace Pisces.Slack.Client.Helpers
 {
-  public static class Extensions
+  internal static class Extensions
   {
     public static string ConvertToString(this byte[] buffer)
     {
@@ -56,10 +57,10 @@ namespace Pisces.Slack.Client.Helpers
       };
     }
 
-    public static MessageEvent ToMessageContract(this Dictionary<string, object> msg)
+    public static MessageEvent ToMessageContract(this Dictionary<string, object> msg, SlackContext ctx)
     {
-      var channel = SlackUtils.GetChannel(msg);
-      var user = SlackUtils.GetUserSender(msg);
+      var channel = ctx.GetChannel(msg);
+      var user = ctx.GetUserSender(msg);
 
       return new MessageEvent
       {

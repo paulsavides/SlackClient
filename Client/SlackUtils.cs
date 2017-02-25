@@ -7,31 +7,31 @@ namespace Pisces.Slack.Client
 {
   public static class SlackUtils
   {
-    public static Channel GetChannel(Dictionary<string, object> msg)
+    public static Channel GetChannel(this SlackContext ctx, Dictionary<string, object> msg)
     {
       string channelId = msg.GetValueByKey("channel");
-      Channel foundChannel = SlackContext.Channels.Find((channel) => channel.Id == channelId);
+      Channel foundChannel = ctx.Channels.Find((channel) => channel.Id == channelId);
 
       if (foundChannel == null)
       {
         // slack is sort of odd
-        foundChannel = SlackContext.Groups.Find((group) => (group.Id == channelId));
+        foundChannel = ctx.Groups.Find((group) => (group.Id == channelId));
       }
 
       return foundChannel;
     }
 
-    public static bool MessageToMe(MessageEvent msg)
+    public static bool MessageToMe(this SlackContext ctx, MessageEvent msg)
     {
-      return msg.Text.Contains(SlackContext.Self.ID);
+      return msg.Text.Contains(ctx.Self.ID);
     }
 
-    public static bool MessageToMe(Dictionary<string, object> msg)
+    public static bool MessageToMe(this SlackContext ctx, Dictionary<string, object> msg)
     {
       bool messageToMe = false;
       if (MessageIsGivenType(msg, "message"))
       {
-        if (msg.GetValueByKey("text").Contains(SlackContext.Self.ID))
+        if (msg.GetValueByKey("text").Contains(ctx.Self.ID))
         {
           messageToMe = true;
         }
@@ -40,10 +40,10 @@ namespace Pisces.Slack.Client
       return messageToMe;
     }
 
-    public static User GetUserSender(Dictionary<string, object> msg)
+    public static User GetUserSender(this SlackContext ctx, Dictionary<string, object> msg)
     {
       string userId = msg.GetValueByKey("user");
-      return SlackContext.Users.Find((one) => (one.ID == userId));
+      return ctx.Users.Find((one) => (one.ID == userId));
     }
 
 

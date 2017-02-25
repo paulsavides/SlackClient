@@ -48,9 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SlackBot.cs" />
-    <Compile Include="SlackContext.cs" />
     <Compile Include="Helpers\Extensions.cs" />
-    <Compile Include="Helpers\InternalUtilities.cs" />
     <Compile Include="Init\Constants.cs" />
     <Compile Include="Queue\IMessageQueue.cs" />
     <Compile Include="ISlackBot.cs" />

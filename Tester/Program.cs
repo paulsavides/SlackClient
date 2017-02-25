@@ -30,7 +30,7 @@ namespace Tester
         Console.WriteLine($"text: {message.Text}");
         Console.WriteLine($"timestamp: {message.Timestamp}");
 
-        if (SlackUtils.MessageToMe(message))
+        if (slackBot.GetContext().MessageToMe(message))
         {
           Command command = processCommand(message.Text);
 
