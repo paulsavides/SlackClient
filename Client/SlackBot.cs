@@ -102,9 +102,14 @@ namespace Pisces.Slack.Client
         case EventTypes.ReconnectUrl:
           _ctx.ReconnectUri = new Uri(message.GetValueByKey("url"));
           break;
+
+        // All messages that should just be given to the user go here
         case EventTypes.Message:
+        case EventTypes.UserTyping:
           _msgQueue.AddReceivedMessage(message);
           break;
+
+        // All context related messages should go here
         default:
           break;
       }

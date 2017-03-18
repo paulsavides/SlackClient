@@ -5,5 +5,6 @@
     public const string Message = "message";
     public const string ReconnectUrl = "reconnect_url";
     public const string NoMessage = "no_message";
+    public const string UserTyping = "user_typing";
   }
 }
