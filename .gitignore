@@ -10,3 +10,4 @@
 /Client/bin/Debug
 /Contracts/obj/Debug
 /Contracts/bin/Debug
+*.nupkg

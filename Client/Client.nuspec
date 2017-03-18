@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Pisces.Slack.Client</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Paul Savides</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Cool Stuff.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Slack Client</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
+    </dependencies>
+  </metadata>
+</package>

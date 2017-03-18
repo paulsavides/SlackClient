@@ -59,6 +59,7 @@
     <Compile Include="SlackUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Client.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
