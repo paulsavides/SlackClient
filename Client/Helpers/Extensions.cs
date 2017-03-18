@@ -11,7 +11,7 @@ namespace Pisces.Slack.Client.Helpers
 {
   internal static class Extensions
   {
-    public static string ConvertToString(this byte[] buffer)
+    internal static string ConvertToString(this byte[] buffer)
     {
       char[] c = new char[buffer.Length];
       char[] res = null;
@@ -28,7 +28,8 @@ namespace Pisces.Slack.Client.Helpers
       if (res == null) res = new char[] { };
       return new string(res);
     }
-    public static string GetValueByKey(this Dictionary<string, object> dict, string key)
+
+    internal static string GetValueByKey(this Dictionary<string, object> dict, string key)
     {
       string res = "";
       object tmp;
@@ -45,7 +46,7 @@ namespace Pisces.Slack.Client.Helpers
       return string.Join("&", properties.ToArray());
     }
     
-    public static Dictionary<string, object> ToQueueFormat(this MessageEvent message)
+    internal static Dictionary<string, object> ToQueueFormat(this MessageEvent message)
     {
       return new Dictionary<string, object>
       {
@@ -57,7 +58,7 @@ namespace Pisces.Slack.Client.Helpers
       };
     }
 
-    public static MessageEvent ToMessageContract(this Dictionary<string, object> msg, SlackContext ctx)
+    internal static MessageEvent ToMessageContract(this Dictionary<string, object> msg, SlackContext ctx)
     {
       var channel = ctx.GetChannel(msg);
       var user = ctx.GetUserSender(msg);
@@ -72,14 +73,14 @@ namespace Pisces.Slack.Client.Helpers
       };
     }
 
-    public static string ToTimestamp(this DateTime ts)
+    internal static string ToTimestamp(this DateTime ts)
     {
       DateTime Epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
       TimeSpan elapsedTime = ts - Epoch;
       return ((long)elapsedTime.TotalSeconds).ToString();
     }
 
-    public static DateTime ToDateTime(this string tsString)
+    internal static DateTime ToDateTime(this string tsString)
     {
       double unixTimeStamp;
       double.TryParse(tsString, out unixTimeStamp);

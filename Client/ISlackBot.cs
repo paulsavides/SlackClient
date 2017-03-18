@@ -6,7 +6,7 @@ namespace Pisces.Slack.Client
   public interface ISlackBot
   {
     void Start();
-    SlackContext GetContext();
+    SlackContext Context { get; }
     MessageEvent ReadMessage();
     void SendMessage(MessageEvent message);
   }

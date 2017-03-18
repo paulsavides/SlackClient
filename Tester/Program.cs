@@ -30,9 +30,9 @@ namespace Tester
         Console.WriteLine($"text: {message.Text}");
         Console.WriteLine($"timestamp: {message.Timestamp}");
 
-        if (slackBot.GetContext().MessageToMe(message))
+        if (slackBot.Context.MessageToMe(message))
         {
-          Command command = processCommand(message.Text);
+          Command command = ProcessCommand(message.Text);
 
           slackBot.SendMessage(new MessageEvent
           {
@@ -46,7 +46,7 @@ namespace Tester
       }
     }
 
-    private static Command processCommand(string msg)
+    private static Command ProcessCommand(string msg)
     {
       Command comm = new Command();
 

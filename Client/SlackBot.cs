@@ -22,6 +22,8 @@ namespace Pisces.Slack.Client
 
     private string _apiKey;
 
+    public SlackContext Context { get { return _ctx; } }
+
     public SlackBot(string apiKey)
     {
       _ctx = new SlackContext();
@@ -29,10 +31,6 @@ namespace Pisces.Slack.Client
       _apiKey = apiKey;
     }
 
-    public SlackContext GetContext()
-    {
-      return _ctx;
-    }
 
     public MessageEvent ReadMessage()
     {
@@ -152,6 +150,7 @@ namespace Pisces.Slack.Client
           SendToSocket(sendmsg);
         }
 
+        //TODO: Make this wait period configurable
         Thread.Sleep(1000);
       }
     }
