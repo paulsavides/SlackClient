@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Web;
 using Pisces.Slack.Contracts.Events;
 using System;
-using Pisces.Slack.Contracts.Context;
+using Pisces.Slack.Client;
 
 namespace Pisces.Slack.Client.Helpers
 {
@@ -58,10 +58,11 @@ namespace Pisces.Slack.Client.Helpers
       };
     }
 
-    internal static MessageEvent ToMessageContract(this Dictionary<string, object> msg, SlackContext ctx)
+    internal static MessageEvent ToMessageContract(this Dictionary<string, object> msg)
     {
-      var channel = ctx.GetChannel(msg);
-      var user = ctx.GetUserSender(msg);
+      
+      var channel = SlackUtils.GetChannel(msg);
+      var user = SlackUtils.GetUserSender(msg);
 
       return new MessageEvent
       {

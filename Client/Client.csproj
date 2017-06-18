@@ -55,6 +55,7 @@
     <Compile Include="Queue\MessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Init\RTM.cs" />
+    <Compile Include="SlackContext.cs" />
     <Compile Include="Slacker.cs" />
     <Compile Include="SlackUtils.cs" />
   </ItemGroup>

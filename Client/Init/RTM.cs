@@ -8,13 +8,13 @@ namespace Pisces.Slack.Client.Init
 {
   internal static class RTM
   {
-    internal static SlackContext Start(StartRequest req)
+    internal static void Start(StartRequest req)
     {
       var response = Send(Constants.Endpoints.RTM.Start, req);
       var serResp = JsonConvert.DeserializeObject<StartResponse>(response);
 
       // The start response gives us a load of information about the context
-      return MapToContext(serResp);
+      MapToContext(serResp);
     }
 
     private static string Send(string apiUrl, object req)
@@ -32,23 +32,18 @@ namespace Pisces.Slack.Client.Init
       return response;
     }
 
-    private static SlackContext MapToContext(StartResponse startResponse)
+    private static void MapToContext(StartResponse startResponse)
     {
-      SlackContext ctx = new SlackContext
-      {
-        Bots = startResponse.Bots,
-        Channels = startResponse.Channels,
-        Dnd = startResponse.Dnd,
-        Groups = startResponse.Groups,
-        IMs = startResponse.IMs,
-        Self = startResponse.Self,
-        Subteams = startResponse.Subteams,
-        Team = startResponse.Team,
-        Url = startResponse.Url,
-        Users = startResponse.Users
-      };
-
-      return ctx;
+      SlackContext.Bots = startResponse.Bots;
+      SlackContext.Channels = startResponse.Channels;
+      SlackContext.Dnd = startResponse.Dnd;
+      SlackContext.Groups = startResponse.Groups;
+      SlackContext.IMs = startResponse.IMs;
+      SlackContext.Self = startResponse.Self;
+      SlackContext.Subteams = startResponse.Subteams;
+      SlackContext.Team = startResponse.Team;
+      SlackContext.Url = startResponse.Url;
+      SlackContext.Users = startResponse.Users;
     }
   }
 }

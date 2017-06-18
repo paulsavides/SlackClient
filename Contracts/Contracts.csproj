@@ -49,7 +49,6 @@
     <Compile Include="Context\Profile.cs" />
     <Compile Include="Context\Purpose.cs" />
     <Compile Include="Context\ReconnectMessage.cs" />
-    <Compile Include="Context\SlackContext.cs" />
     <Compile Include="Context\StartRequest.cs" />
     <Compile Include="Context\StartResponse.cs" />
     <Compile Include="Context\Team.cs" />
